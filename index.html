@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Reset Arumdree 2026</title>
+<style>
+/* ================================================================
+   Reset Arumdree 2026 — GitHub Pages 배포용
+   Google Apps Script URL을 아래 API_URL에 입력하세요
+================================================================ */
+:root{--g:#38B858;--gd:#259A40;--gl:#EBF9EF;--gb:rgba(56,184,88,.22);
+--pk:#F06292;--pkl:#FDE8F2;--pkb:rgba(240,98,146,.25);
+--sk:#2E9FD8;--skl:#E6F5FD;
+--go:#C9A227;--gl2:#FEF5E7;--pu:#7D3C98;
+--txt:#18291D;--t2:#4A6654;--t3:#97B49E;--ln:rgba(0,0,0,.08);--card:#fff}
+html,body{min-height:100%;margin:0;background:#F0F7F2;
+  background-image:radial-gradient(at 10% 10%,rgba(249,168,212,.2) 0%,transparent 45%),
+    radial-gradient(at 88% 18%,rgba(167,243,208,.18) 0%,transparent 45%),
+    radial-gradient(at 50% 90%,rgba(196,181,253,.12) 0%,transparent 45%)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Apple SD Gothic Neo','Malgun Gothic','맑은 고딕','Nanum Gothic',sans-serif}
+.v{display:none}.v.on{display:block}
+/* 로딩 오버레이 */
+#loading{position:fixed;inset:0;background:rgba(255,255,255,.85);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;z-index:999;font-size:14px;color:var(--t2)}
+.spin{width:32px;height:32px;border:3px solid var(--gl);border-top-color:var(--g);
+  border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* 공통 */
+.hero{height:220px;background:linear-gradient(150deg,#FDDEED 0%,#E8F8EE 55%,#E4EFF8 100%);
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hb1{position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(249,168,212,.18);top:-50px;left:-40px}
+.hb2{position:absolute;width:110px;height:110px;border-radius:50%;background:rgba(167,243,208,.2);bottom:-30px;right:-20px}
+.hb3{position:absolute;width:70px;height:70px;border-radius:50%;background:rgba(196,181,253,.15);top:30px;right:40px}
+.hw{display:block;margin-top:-2px}
+.lform{background:var(--card);padding:0 1.25rem 1.75rem;margin-top:-1px}
+.app-title{text-align:center;padding:1.25rem 0 1rem}
+.app-nm{font-size:26px;font-weight:700;color:var(--txt);letter-spacing:-.5px}
+.app-ds{font-size:12px;color:var(--t3);letter-spacing:2px;margin-top:3px}
+.lcard{background:#F8FDF9;border:1.5px solid var(--gb);border-radius:16px;padding:1.25rem}
+.fl{font-size:11px;font-weight:700;color:var(--t2);letter-spacing:.8px;margin-bottom:6px;display:block}
+.fi{width:100%;padding:13px 14px;font-size:15px;font-family:inherit;background:var(--card);
+  border:1.5px solid var(--ln);border-radius:10px;color:var(--txt);outline:none;transition:border-color .2s}
+.fi:focus{border-color:var(--g)}.fi::placeholder{color:var(--t3)}
+.ferr{font-size:12px;color:var(--pk);margin-top:5px;display:none}
+.btn-g{width:100%;margin-top:11px;padding:14px;font-size:16px;font-weight:700;font-family:inherit;
+  background:var(--g);border:none;border-radius:12px;color:#fff;cursor:pointer}
+.btn-g:active{background:var(--gd)}.btn-go{background:var(--go)}
+.div-or{display:flex;align-items:center;gap:10px;margin:14px 0 0}
+.div-line{flex:1;height:1px;background:var(--ln)}.div-txt{font-size:12px;color:var(--t3)}
+.btn-ghost{width:100%;margin-top:10px;padding:13px;font-size:14px;font-weight:700;font-family:inherit;
+  background:var(--card);border:1.5px solid var(--gb);border-radius:12px;color:var(--t2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.gl-btn{font-size:12px;color:var(--t3);cursor:pointer;background:none;border:none;font-family:inherit;
+  text-decoration:underline;text-underline-offset:2px;display:block;text-align:center;margin-top:.75rem}
+.tbar{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1rem;
+  background:rgba(255,255,255,.95);border-bottom:1px solid var(--ln);position:sticky;top:0;z-index:10}
+.tbl{display:flex;align-items:center;gap:10px}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--gl);border:2px solid var(--gb);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--gd)}
+.tbr{display:flex;flex-direction:column}
+.tbt{font-size:15px;font-weight:700;color:var(--txt);line-height:1.2}.tbs{font-size:11px;color:var(--t2)}
+.btn-exit{font-size:12px;font-family:inherit;background:var(--card);border:1px solid var(--ln);
+  border-radius:20px;padding:5px 12px;color:var(--t2);cursor:pointer}
+.score-card{margin:.75rem 1rem 0;background:linear-gradient(135deg,#E8F9EE 0%,#F0FAFF 100%);
+  border:1.5px solid var(--gb);border-radius:20px;padding:1.125rem 1.25rem;display:flex;align-items:center;gap:1.125rem}
+.ring-arc{transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1)}
+.score-right{flex:1;min-width:0}
+.score-msg{font-size:13px;font-weight:700;color:var(--gd);margin-bottom:.625rem}
+.score-chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:5px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.chip-g{background:var(--gl);color:var(--gd);border:1px solid var(--gb)}
+.chip-pk{background:var(--pkl);color:#C2185B;border:1px solid var(--pkb)}
+.wdots{display:flex;gap:5px;margin-top:10px}
+.wd{flex:1;height:28px;border-radius:7px;border:1px solid var(--ln);background:rgba(255,255,255,.7);
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;
+  cursor:pointer;color:var(--t3);position:relative;overflow:hidden}
+.wd-fill{position:absolute;left:0;top:0;height:100%;background:rgba(56,184,88,.2);transition:width .4s}
+.wd-txt{position:relative;z-index:1;color:var(--t2)}
+.wd.nw{border:2px solid var(--pkb)}.wd.nw .wd-fill{background:rgba(240,98,146,.12)}.wd.nw .wd-txt{color:var(--pk)}
+.wd.full{border-color:var(--g)}.wd.full .wd-fill{background:rgba(56,184,88,.28)}.wd.full .wd-txt{color:var(--g)}
+.wks-wrap{padding:.75rem 1rem;display:flex;flex-direction:column;gap:8px}
+.wk-label{font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;padding:0 2px;margin-bottom:2px}
+.wc{background:var(--card);border-radius:16px;overflow:hidden;
+  border-left:4px solid var(--ln);border-top:1px solid var(--ln);border-right:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+.wc.is-par{border-left-color:rgba(56,184,88,.5)}
+.wc.is-full{border-left-color:var(--g)}
+.wc.is-nw{border-left-color:var(--pk);background:var(--pkl)}
+.wtg{width:100%;padding:13px 14px 11px;background:none;border:none;cursor:pointer;font-family:inherit;text-align:left}
+.wt1{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.wnum-c{width:28px;height:28px;border-radius:50%;background:var(--gl);border:1.5px solid var(--gb);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gd);flex-shrink:0}
+.wc.is-full .wnum-c{background:var(--g);border-color:var(--gd);color:#fff}
+.wc.is-nw .wnum-c{background:var(--pk);border-color:#C2185B;color:#fff}
+.wt1l{display:flex;align-items:center;gap:8px}
+.wn{font-size:15px;font-weight:700;color:var(--txt)}.wdates{font-size:12px;color:var(--t2)}
+.npill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--pkl);color:var(--pk);border:1px solid var(--pkb)}
+.wt1r{display:flex;align-items:center;gap:7px}
+.wscr{font-size:13px;font-weight:700;color:var(--t2)}.wscr b{color:var(--g)}
+.wok{font-size:11px;font-weight:700;color:var(--g);background:var(--gl);padding:2px 8px;border-radius:20px}
+.wch{font-size:10px;color:var(--t3)}
+.wbt{height:4px;background:var(--ln);border-radius:2px;overflow:hidden}
+.wbf{height:100%;background:linear-gradient(90deg,#7ED49A,var(--g));border-radius:2px;transition:width .4s}
+.wc.is-nw .wbf{background:linear-gradient(90deg,#F48FB1,var(--pk))}
+.wb{display:none;border-top:1px solid var(--ln);padding:12px 14px 14px}.wb.op{display:block}
+.sec-hd{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;
+  font-size:11px;font-weight:700;margin:10px 0 8px}
+.sec-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.cr{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer}
+.cr:last-child{border-bottom:none}
+.cb{width:24px;height:24px;border-radius:7px;border:2px solid var(--ln);background:#F8FBF8;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cb.ck{background:var(--g);border-color:var(--gd)}.cb.ck::after{content:"✓";font-size:13px;color:#fff;font-weight:700}
+.cl{font-size:14px;color:var(--txt);flex:1;line-height:1.4}.cl.st{color:var(--t3);text-decoration:line-through}
+.ptb{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:#EBEBEB;
+  color:#555;border:1px solid #CCC;flex-shrink:0;transition:all .25s}
+.ptb.ck{background:var(--gl);color:var(--gd);border-color:var(--gb)}
+.pass-btn{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1.5px solid #CCC;
+  background:#EBEBEB;color:#555;cursor:pointer;flex-shrink:0;font-family:inherit}
+.pass-btn.on{background:var(--skl);border-color:rgba(46,159,216,.35);color:var(--sk)}
+/* 기도 스테퍼 */
+.prayer-row{padding:10px 2px 12px;border-bottom:1px solid rgba(0,0,0,.04)}
+.prayer-top{display:flex;align-items:center;gap:8px;margin-bottom:11px}
+.prayer-icon{width:26px;height:26px;border-radius:7px;background:#F5EEFF;border:1.5px solid rgba(155,89,182,.25);
+  display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.prayer-label{font-size:14px;color:var(--txt);flex:1;font-weight:500}
+.prayer-badge{font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;
+  background:#E0E0E0;color:#666;border:1.5px solid #BDBDBD;transition:all .3s;white-space:nowrap}
+.prayer-badge.on{background:#EDE7F6;color:#6A1B9A;border-color:#CE93D8}
+.stepper-track{display:flex;gap:6px}
+.step-btn{flex:1;height:38px;border-radius:9px;border:2px solid #BDBDBD;background:#E8E8E8;
+  font-size:13px;font-weight:700;color:#424242;cursor:pointer;font-family:inherit;transition:all .15s;user-select:none}
+.step-btn:active:not(.act){background:#D5D5D5}
+.step-btn.act{background:var(--pu);border-color:#5B2C6F;color:#fff;box-shadow:0 2px 6px rgba(125,60,152,.35)}
+.stepper-hint{font-size:10px;color:var(--t3);text-align:right;margin-top:6px}
+.dbanner{margin-top:12px;padding:10px 14px;background:linear-gradient(135deg,var(--gl),#DDFAE8);
+  border:1px solid var(--gb);border-radius:12px;font-size:13px;color:var(--gd);font-weight:700;text-align:center}
+.fin{margin:.75rem 1rem;padding:1rem 1.25rem;background:linear-gradient(135deg,var(--gl),#DDFAE8);
+  border:1.5px solid var(--gb);border-radius:18px;text-align:center}
+.fint{font-size:16px;font-weight:700;color:var(--gd);margin-bottom:4px}.fins{font-size:13px;color:var(--t2)}
+/* 관리자 */
+.stat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:.875rem 1rem;background:var(--card);border-bottom:1px solid var(--ln)}
+.scard{border-radius:14px;padding:.875rem 1rem;border:1.5px solid}
+.scard.s1{background:var(--gl);border-color:var(--gb)}.scard.s2{background:var(--pkl);border-color:var(--pkb)}
+.slb{font-size:11px;font-weight:700;color:var(--t2);letter-spacing:.5px;margin-bottom:5px}
+.sv{font-size:28px;font-weight:700}
+.scard.s1 .sv{color:var(--gd)}.scard.s2 .sv{color:#C2185B}
+.ul{padding:.75rem 1rem;display:flex;flex-direction:column;gap:8px}
+.uc{background:var(--card);border:1.5px solid var(--ln);border-radius:16px;padding:13px 14px;border-left:4px solid var(--g)}
+.ur{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.unm{font-size:15px;font-weight:700;color:var(--txt)}
+.usw{display:flex;align-items:baseline;gap:3px}
+.uscr{font-size:20px;font-weight:700;color:var(--g)}.ussub{font-size:11px;color:var(--t3)}
+.mds{display:flex;gap:4px;margin-bottom:8px}
+.md{flex:1;height:22px;border-radius:5px;border:1px solid var(--ln);background:#F6FBF6;
+  display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--t3);position:relative;overflow:hidden}
+.md-f{position:absolute;left:0;top:0;height:100%;background:rgba(56,184,88,.2)}
+.md-t{position:relative;z-index:1}
+.md.full .md-f{background:rgba(56,184,88,.38)}.md.full .md-t{color:var(--gd)}
+.ubtr{height:5px;background:var(--gl);border-radius:3px;overflow:hidden;border:1px solid var(--gb)}
+.ubf{height:100%;background:linear-gradient(90deg,#7ED49A,var(--g));border-radius:3px}
+.rfbtn{display:block;margin:.75rem 1rem 0;width:calc(100% - 2rem);padding:12px;font-size:14px;
+  font-family:inherit;background:var(--card);border:1.5px solid var(--gb);border-radius:12px;color:var(--gd);cursor:pointer;font-weight:700}
+.ltxt{padding:2rem 1rem;text-align:center;color:var(--t2);font-size:14px}
+</style>
+</head>
+<body>
+
+<!-- 로딩 오버레이 -->
+<div id="loading"><div class="spin"></div><span>불러오는 중...</span></div>
+
+<!-- ══ LOGIN ══ -->
+<div id="vl" class="v">
+  <div class="hero">
+    <div class="hb1"></div><div class="hb2"></div><div class="hb3"></div>
+    <svg viewBox="0 0 200 200" width="150" height="150" fill="none">
+      <ellipse cx="100" cy="182" rx="36" ry="7" fill="rgba(139,100,32,.12)"/>
+      <rect x="92" y="148" width="16" height="34" rx="6" fill="#A0722A"/>
+      <path d="M92 162 Q72 155 58 138" stroke="#8B6420" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <path d="M108 162 Q128 155 142 138" stroke="#8B6420" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <ellipse cx="100" cy="100" rx="46" ry="50" fill="#3DB860"/>
+      <ellipse cx="72" cy="112" rx="30" ry="28" fill="#32A855" opacity=".9"/>
+      <ellipse cx="128" cy="112" rx="30" ry="28" fill="#32A855" opacity=".9"/>
+      <ellipse cx="100" cy="78" rx="34" ry="30" fill="#4AC96E" opacity=".85"/>
+      <ellipse cx="100" cy="60" rx="22" ry="22" fill="#5DD67C" opacity=".8"/>
+      <circle cx="62" cy="88" r="9" fill="#F9A8C9" opacity=".92"/>
+      <circle cx="78" cy="68" r="7" fill="#FFB8D4" opacity=".88"/>
+      <circle cx="100" cy="52" r="10" fill="#F9A8C9" opacity=".92"/>
+      <circle cx="122" cy="68" r="7" fill="#FFB8D4" opacity=".88"/>
+      <circle cx="138" cy="89" r="9" fill="#F9A8C9" opacity=".88"/>
+    </svg>
+  </div>
+  <svg class="hw" viewBox="0 0 375 40" width="100%" height="40" preserveAspectRatio="none">
+    <path d="M0,0 Q94,40 188,22 T375,4 L375,40 L0,40 Z" fill="#fff"/>
+  </svg>
+  <div class="lform">
+    <div class="app-title">
+      <div class="app-nm">Reset Arumdree</div>
+      <div class="app-ds">예배 · 기도 · 공간 · 2026</div>
+    </div>
+    <div class="lcard">
+      <label class="fl" for="ni">이름</label>
+      <input class="fi" id="ni" type="text" placeholder="홍길동" maxlength="20" autocomplete="off">
+      <p class="ferr" id="le">이름을 입력해 주세요.</p>
+      <button class="btn-g" id="lb">입장하기</button>
+      <div class="div-or"><div class="div-line"></div><span class="div-txt">또는</span><div class="div-line"></div></div>
+      <button class="btn-ghost" id="tab">&#128274; 관리자 로그인</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHECKLIST ══ -->
+<div id="vc" class="v">
+  <div class="tbar">
+    <div class="tbl">
+      <div class="avatar" id="av">?</div>
+      <div class="tbr"><span class="tbt" id="ud">—</span><span class="tbs">Reset Arumdree 2026</span></div>
+    </div>
+    <button class="btn-exit" id="lo">나가기</button>
+  </div>
+  <div class="score-card">
+    <div style="flex-shrink:0">
+      <svg width="110" height="110" viewBox="0 0 110 110">
+        <defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#7ED49A"/><stop offset="100%" stop-color="#2ECC71"/>
+        </linearGradient></defs>
+        <circle cx="55" cy="55" r="45" fill="none" stroke="rgba(56,184,88,.15)" stroke-width="8"/>
+        <circle cx="55" cy="55" r="45" fill="none" stroke="url(#rg)" stroke-width="8"
+          stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="282.7"
+          transform="rotate(-90 55 55)" id="ring-arc" class="ring-arc"/>
+        <text x="55" y="50" text-anchor="middle" font-size="22" font-weight="900"
+          fill="#18291D" id="ring-score">0</text>
+        <text x="55" y="66" text-anchor="middle" font-size="10" fill="#97B49E">/ 700점</text>
+      </svg>
+    </div>
+    <div class="score-right">
+      <div class="score-msg" id="sc-msg">시작해볼까요?</div>
+      <div class="score-chips">
+        <span class="chip chip-g" id="chip-wk">0 / 7주</span>
+        <span class="chip chip-pk" id="chip-pct">0%</span>
+      </div>
+      <div class="wdots" id="wdots"></div>
+    </div>
+  </div>
+  <div class="wks-wrap">
+    <p class="wk-label">주차별 점검</p>
+    <div id="wks"></div>
+  </div>
+  <div id="fin" style="display:none" class="fin">
+    <p class="fint">일곱 이레를 완주하셨습니다 🌿</p>
+    <p class="fins">700점 달성! Reset Arumdree 캠페인을 마칩니다.</p>
+  </div>
+</div>
+
+<!-- ══ ADMIN PIN ══ -->
+<div id="vap" class="v">
+  <div class="hero" style="background:linear-gradient(150deg,#FEF5E0,#FFF8E8,#FFF0C8)">
+    <div class="hb1" style="background:rgba(201,162,39,.15)"></div>
+    <svg viewBox="0 0 120 120" width="100" height="100" fill="none">
+      <circle cx="60" cy="60" r="48" fill="rgba(201,162,39,.12)"/>
+      <circle cx="60" cy="60" r="36" fill="rgba(201,162,39,.18)"/>
+      <rect x="36" y="58" width="48" height="36" rx="8" fill="#C9A227"/>
+      <path d="M42 58v-12a18 18 0 0 1 36 0v12" stroke="#C9A227" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <circle cx="60" cy="76" r="6" fill="rgba(255,255,255,.8)"/>
+    </svg>
+  </div>
+  <svg class="hw" viewBox="0 0 375 40" width="100%" height="40" preserveAspectRatio="none">
+    <path d="M0,4 Q94,40 188,22 T375,0 L375,40 L0,40 Z" fill="#fff"/>
+  </svg>
+  <div class="lform">
+    <div class="app-title"><div class="app-nm">관리자</div><div class="app-ds">Reset Arumdree 2026</div></div>
+    <div class="lcard" style="background:#FFFBF0;border-color:rgba(201,162,39,.28)">
+      <label class="fl" for="pi">관리자 코드</label>
+      <input class="fi" id="pi" type="password" placeholder="••••" maxlength="10" autocomplete="off">
+      <p class="ferr" id="pe">코드가 올바르지 않습니다.</p>
+      <button class="btn-g btn-go" id="apb">확인</button>
+    </div>
+    <button class="gl-btn" id="pb2">← 돌아가기</button>
+  </div>
+</div>
+
+<!-- ══ ADMIN DASHBOARD ══ -->
+<div id="va" class="v">
+  <div class="tbar">
+    <div class="tbl">
+      <div class="avatar" style="background:var(--gl2);border-color:rgba(201,162,39,.3);color:#8B6B15">관</div>
+      <div class="tbr"><span class="tbt">관리자 대시보드</span><span class="tbs">Reset Arumdree 2026</span></div>
+    </div>
+    <button class="btn-exit" id="ae">나가기</button>
+  </div>
+  <div class="stat-grid">
+    <div class="scard s1"><p class="slb">참여 인원</p><p class="sv" id="su">—</p></div>
+    <div class="scard s2"><p class="slb">평균 점수</p><p class="sv" id="sd">—</p></div>
+  </div>
+  <button class="rfbtn" id="rb">새로 고침</button>
+  <div class="ul" id="ulist"></div>
+</div>
+
+<script>
+// ================================================================
+// ★ 여기에 Google Apps Script 배포 URL을 입력하세요 ★
+// ================================================================
+https://script.google.com/macros/s/AKfycbz3TxkEkh-Qi0BTgS_QeBE7kr2XQkID5BWGJbWCUgI9cmUMNCdG7ClZDCtqH_ErVWTr/exec
+const PIN = "0000"; // 관리자 코드 (변경 권장)
+// ================================================================
+
+const WK=[
+  {n:1,l:"1주차",d:"5/11–17",s:new Date(2026,4,11),e:new Date(2026,4,17)},
+  {n:2,l:"2주차",d:"5/18–24",s:new Date(2026,4,18),e:new Date(2026,4,24)},
+  {n:3,l:"3주차",d:"5/25–31",s:new Date(2026,4,25),e:new Date(2026,4,31)},
+  {n:4,l:"4주차",d:"6/1–7",  s:new Date(2026,5,1), e:new Date(2026,5,7)},
+  {n:5,l:"5주차",d:"6/8–14", s:new Date(2026,5,8), e:new Date(2026,5,14)},
+  {n:6,l:"6주차",d:"6/15–21",s:new Date(2026,5,15),e:new Date(2026,5,21)},
+  {n:7,l:"7주차",d:"6/22–30",s:new Date(2026,5,22),e:new Date(2026,5,30)},
+];
+const SIT=[
+  {id:"worship",sec:"예배 리셋",lbl:"예배 10분 전 도착",hp:false,pts:10},
+  {id:"space1", sec:"공간 리셋",lbl:"공간 사용 규칙에 따라 사용 후 정리",hp:false,pts:10},
+  {id:"space2", sec:"공간 리셋",lbl:"조별 모임 후 정리",hp:true,pts:10},
+  {id:"space3", sec:"공간 리셋",lbl:"쓰레기 분리 수거",hp:false,pts:10},
+];
+const SC_STYLE={
+  "예배 리셋":{bg:"#F5EEFF",col:"#7B2D8B",dc:"#9B59B6"},
+  "기도 리셋":{bg:"#E6F5FD",col:"#1A6A9A",dc:"#2E9FD8"},
+  "공간 리셋":{bg:"#E6F9EE",col:"#1A7A3C",dc:"#27AE60"},
+};
+const MSGS=["시작해볼까요?","좋은 출발이에요!","잘 하고 있어요!","절반을 넘었어요!","대단해요!","거의 다 왔어요!","완주하셨습니다! 🎉"];
+const TMAX=700,WMAX=100,PID="prayer",PMAX=6;
+
+function gcw(){const n=new Date();for(let i=WK.length-1;i>=0;i--)if(n>=WK[i].s&&n<=WK[i].e)return WK[i].n;return null;}
+function mdef(){const d={};for(let i=1;i<=7;i++){d[i]={};for(const x of SIT){d[i][x.id]=false;if(x.hp)d[i][x.id+"_p"]=false;}d[i][PID]=0;}return d;}
+function wscr(s,n){let sc=0;for(const it of SIT){const on=it.hp?(s[n][it.id]||s[n][it.id+"_p"]):s[n][it.id];if(on)sc+=it.pts;}sc+=(s[n][PID]||0)*10;return sc;}
+function tscr(s){return WK.reduce((a,w)=>a+wscr(s,w.n),0);}
+function wfull(s,n){return wscr(s,n)===WMAX;}
+
+let U=null,UD=mdef(),OW=null;
+const CW=gcw();
+
+// 로딩 제어
+function hideLoading(){document.getElementById("loading").style.display="none";}
+function showLoading(){document.getElementById("loading").style.display="flex";}
+
+function show(id){
+  document.querySelectorAll(".v").forEach(v=>v.classList.remove("on"));
+  document.getElementById(id).classList.add("on");
+}
+
+// ── API 연동 ──────────────────────────────────────────────────
+async function apiGet(name){
+  try{
+    const r=await fetch(`${API_URL}?name=${encodeURIComponent(name)}`);
+    return await r.json();
+  }catch(e){return {ok:false,error:e.message};}
+}
+async function apiSave(name,data){
+  try{
+    await fetch(API_URL,{method:"POST",body:JSON.stringify({name,data}),
+      headers:{"Content-Type":"application/json"}});
+  }catch(e){console.warn("저장 오류:",e);}
+}
+async function apiGetAll(){
+  try{
+    const r=await fetch(`${API_URL}?action=all`);
+    return await r.json();
+  }catch(e){return {ok:false};}
+}
+
+// ── 로그인 ────────────────────────────────────────────────────
+async function login(name){
+  if(!name.trim()){document.getElementById("le").style.display="block";return;}
+  document.getElementById("le").style.display="none";
+  showLoading();
+  U=name.trim();
+  const res=await apiGet(U);
+  if(res.ok&&res.found&&res.data){
+    // 서버 데이터로 복원
+    UD=mdef();
+    for(let w=1;w<=7;w++){
+      if(res.data[w]){Object.assign(UD[w],res.data[w]);}
+    }
+  } else {
+    UD=mdef();
+  }
+  OW=CW||1;
+  document.getElementById("ud").textContent=U+" 님";
+  document.getElementById("av").textContent=U.charAt(0);
+  hideLoading();show("vc");rend();
+}
+
+// ── 저장 (디바운스) ────────────────────────────────────────────
+let saveTimer=null;
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>apiSave(U,UD),800);
+}
+
+// ── 체크 토글 ────────────────────────────────────────────────
+function togSimple(n,id){
+  UD[n][id]=!UD[n][id];
+  if(id.endsWith("_p")){const b=id.slice(0,-2);if(UD[n][id])UD[n][b]=false;}
+  else{const pk=id+"_p";if(pk in UD[n]&&UD[n][id])UD[n][pk]=false;}
+  save();rendScoreOnly();rendWeekHeader(n);
+}
+
+// ── 기도 스테퍼 ──────────────────────────────────────────────
+function setPrayer(wn,cnt){
+  UD[wn][PID]=cnt;save();
+  const track=document.getElementById(`ptrack-${wn}`);
+  if(track) track.querySelectorAll('.step-btn').forEach((b,i)=>b.classList.toggle('act',cnt>=(i+1)));
+  const badge=document.getElementById(`pbadge-${wn}`);
+  if(badge){badge.textContent=cnt>0?`+${cnt*10}점`:"+0점";badge.classList.toggle('on',cnt>0);}
+  rendScoreOnly();rendWeekHeader(wn);
+}
+
+// ── 점수 영역 업데이트 ────────────────────────────────────────
+function rendScoreOnly(){
+  const tot=tscr(UD),pct=Math.round(tot/TMAX*100),wdn=WK.filter(w=>wfull(UD,w.n)).length;
+  document.getElementById("ring-arc").style.strokeDashoffset=282.7*(1-tot/TMAX);
+  document.getElementById("ring-score").textContent=tot;
+  document.getElementById("sc-msg").textContent=MSGS[Math.min(6,Math.floor(tot/100))];
+  document.getElementById("chip-wk").textContent=`${wdn} / 7주`;
+  document.getElementById("chip-pct").textContent=`${pct}%`;
+  document.getElementById("wdots").querySelectorAll('.wd').forEach((el,i)=>{
+    const w=WK[i],sc=wscr(UD,w.n),full=wfull(UD,w.n),p2=Math.round(sc/WMAX*100);
+    el.className="wd"+(full?" full":"")+(w.n===CW?" nw":"");
+    el.querySelector('.wd-fill').style.width=p2+'%';
+    el.querySelector('.wd-txt').textContent=full?"✓":w.n;
+  });
+  document.getElementById("fin").style.display=tscr(UD)===TMAX?"block":"none";
+}
+
+function rendWeekHeader(n){
+  const sc=wscr(UD,n),full=wfull(UD,n),par=sc>0&&!full,c=n===CW,wp=Math.round(sc/WMAX*100);
+  const card=document.getElementById(`wcard-${n}`);if(!card)return;
+  card.className="wc"+(c?" is-nw":full?" is-full":par?" is-par":"");
+  const nc=card.querySelector('.wnum-c');if(nc)nc.textContent=full?"✓":n;
+  const se=card.querySelector('.wscr');if(se)se.innerHTML=`<b>${sc}</b>/100점`;
+  const ok=card.querySelector('.wok');
+  if(full&&!ok){const o=document.createElement('span');o.className='wok';o.textContent='완료';card.querySelector('.wt1r').insertBefore(o,card.querySelector('.wch'));}
+  else if(!full&&ok)ok.remove();
+  const bar=card.querySelector('.wbf');if(bar)bar.style.width=wp+'%';
+  const bn=card.querySelector('.dbanner');
+  if(full&&!bn){const b=document.createElement('div');b.className='dbanner';b.textContent=`${n}주차 100점 달성! 수고하셨습니다 🎉`;card.querySelector('.wb').appendChild(b);}
+  else if(!full&&bn)bn.remove();
+}
+
+function rend(){
+  rendScoreOnly();
+  const de=document.getElementById("wdots");
+  if(!de.children.length){
+    for(const w of WK){
+      const sc=wscr(UD,w.n),full=wfull(UD,w.n),p2=Math.round(sc/WMAX*100);
+      const el=document.createElement("div");el.className="wd"+(full?" full":"")+(w.n===CW?" nw":"");
+      el.innerHTML=`<div class="wd-fill" style="width:${p2}%"></div><span class="wd-txt">${full?"✓":w.n}</span>`;
+      el.onclick=()=>{OW=OW===w.n?null:w.n;rendAllCards();};de.appendChild(el);
+    }
+  }
+  rendAllCards();
+}
+
+function rendAllCards(){
+  const ct=document.getElementById("wks");ct.innerHTML="";
+  for(const w of WK){
+    const io=OW===w.n,sc=wscr(UD,w.n),full=wfull(UD,w.n),c=w.n===CW,par=sc>0&&!full,wp=Math.round(sc/WMAX*100);
+    const card=document.createElement("div");card.className="wc"+(c?" is-nw":full?" is-full":par?" is-par":"");card.id=`wcard-${w.n}`;
+    const btn=document.createElement("button");btn.className="wtg";
+    btn.innerHTML=`<div class="wt1"><div class="wt1l"><div class="wnum-c">${full?"✓":w.n}</div><span class="wn">${w.l}</span><span class="wdates">${w.d}</span>${c?'<span class="npill">이번 주</span>':""}</div><div class="wt1r"><span class="wscr"><b>${sc}</b>/100점</span>${full?'<span class="wok">완료</span>':""}<span class="wch">${io?"▲":"▼"}</span></div></div><div class="wbt"><div class="wbf" style="width:${wp}%"></div></div>`;
+    btn.onclick=()=>{OW=io?null:w.n;rendAllCards();};card.appendChild(btn);
+    const body=document.createElement("div");body.className="wb"+(io?" op":"");
+    const SECS={"예배 리셋":[],"기도 리셋":"prayer","공간 리셋":[]};
+    for(const it of SIT)if(Array.isArray(SECS[it.sec]))SECS[it.sec].push(it);
+    for(const[sn,val]of Object.entries(SECS)){
+      const st=SC_STYLE[sn];
+      const shd=document.createElement("div");shd.className="sec-hd";
+      shd.style.cssText=`background:${st.bg};color:${st.col}`;
+      shd.innerHTML=`<span class="sec-dot" style="background:${st.dc}"></span>${sn}`;
+      body.appendChild(shd);
+      if(val==="prayer"){
+        const pCnt=UD[w.n][PID]||0;
+        const pRow=document.createElement("div");pRow.className="prayer-row";
+        const pTop=document.createElement("div");pTop.className="prayer-top";
+        const pIcon=document.createElement("div");pIcon.className="prayer-icon";pIcon.textContent="🙏";
+        const pLbl=document.createElement("span");pLbl.className="prayer-label";pLbl.textContent="릴레이 기도 참여 횟수";
+        const pBadge=document.createElement("span");pBadge.className="prayer-badge"+(pCnt>0?" on":"");
+        pBadge.id=`pbadge-${w.n}`;pBadge.textContent=pCnt>0?`+${pCnt*10}점`:"+0점";
+        pTop.appendChild(pIcon);pTop.appendChild(pLbl);pTop.appendChild(pBadge);
+        const track=document.createElement("div");track.className="stepper-track";track.id=`ptrack-${w.n}`;
+        for(let r=1;r<=PMAX;r++){
+          const sb=document.createElement("button");sb.className="step-btn"+(pCnt>=r?" act":"");
+          sb.textContent=r+"회";const wn=w.n,rr=r;
+          sb.onclick=(e)=>{e.stopPropagation();setPrayer(wn,UD[wn][PID]===rr?0:rr);};track.appendChild(sb);
+        }
+        const hint=document.createElement("div");hint.className="stepper-hint";hint.textContent="해당 횟수를 눌러주세요 (최대 6회 × 10점)";
+        pRow.appendChild(pTop);pRow.appendChild(track);pRow.appendChild(hint);body.appendChild(pRow);
+      } else {
+        for(const it of val){
+          const row=document.createElement("div");row.className="cr";
+          const ck=UD[w.n][it.id],ps=it.hp&&UD[w.n][it.id+"_p"],active=ck||ps;
+          const bx=document.createElement("div");bx.className="cb"+(ck?" ck":"");bx.onclick=()=>togSimple(w.n,it.id);
+          const lb=document.createElement("span");lb.className="cl"+(ps?" st":"");lb.textContent=it.lbl;lb.onclick=()=>togSimple(w.n,it.id);
+          const badge=document.createElement("span");badge.className="ptb"+(active?" ck":"");badge.textContent="+"+it.pts+"점";
+          row.appendChild(bx);row.appendChild(lb);
+          if(it.hp){const pb=document.createElement("button");pb.className="pass-btn"+(ps?" on":"");pb.textContent="Pass";pb.onclick=(e)=>{e.stopPropagation();togSimple(w.n,it.id+"_p");};row.appendChild(pb);}
+          row.appendChild(badge);body.appendChild(row);
+        }
+      }
+    }
+    if(full){const bn=document.createElement("div");bn.className="dbanner";bn.textContent=`${w.l} 100점 달성! 수고하셨습니다 🎉`;body.appendChild(bn);}
+    card.appendChild(body);ct.appendChild(card);
+  }
+}
+
+// ── 관리자 대시보드 ───────────────────────────────────────────
+async function loadAdmin(){
+  const ul=document.getElementById("ulist");
+  ul.innerHTML='<div class="ltxt">불러오는 중...</div>';
+  document.getElementById("su").textContent="—";document.getElementById("sd").textContent="—";
+  try{
+    // Apps Script에서 전체 목록 가져오기
+    const r=await fetch(`${API_URL}?action=all`);
+    const data=await r.json();
+    if(!data||!data.length){ul.innerHTML='<div class="ltxt">등록된 사용자가 없습니다.</div>';
+      document.getElementById("su").textContent="0";document.getElementById("sd").textContent="0";return;}
+    const avg=Math.round(data.reduce((a,u)=>a+(u.total||0),0)/data.length);
+    document.getElementById("su").textContent=data.length;
+    document.getElementById("sd").textContent=avg+"점";
+    data.sort((a,b)=>(b.total||0)-(a.total||0));ul.innerHTML="";
+    for(const u of data){
+      const ts=u.total||0,tp=Math.round(ts/TMAX*100);
+      const scores=u.scores||[0,0,0,0,0,0,0];
+      const c=document.createElement("div");c.className="uc";
+      const nr=document.createElement("div");nr.className="ur";
+      const sw=document.createElement("div");sw.className="usw";
+      sw.innerHTML=`<span class="uscr">${ts}</span><span class="ussub">점 (${tp}%)</span>`;
+      nr.innerHTML=`<span class="unm">${u.name}</span>`;nr.appendChild(sw);
+      const md=document.createElement("div");md.className="mds";
+      for(let i=0;i<7;i++){
+        const sc=scores[i]||0,full=sc===WMAX,wp=Math.round(sc/WMAX*100);
+        const d=document.createElement("div");d.className="md"+(full?" full":"");
+        d.innerHTML=`<div class="md-f" style="width:${wp}%"></div><span class="md-t">${full?"✓":sc>0?sc:""}</span>`;md.appendChild(d);
+      }
+      const bt=document.createElement("div");bt.className="ubtr";
+      const bf=document.createElement("div");bf.className="ubf";bf.style.width=`${tp}%`;bt.appendChild(bf);
+      c.appendChild(nr);c.appendChild(md);c.appendChild(bt);ul.appendChild(c);
+    }
+  }catch(e){ul.innerHTML='<div class="ltxt">오류가 발생했습니다. API URL을 확인해 주세요.</div>';}
+}
+
+// ── 이벤트 ────────────────────────────────────────────────────
+document.getElementById("lb").onclick=()=>login(document.getElementById("ni").value);
+document.getElementById("ni").addEventListener("keydown",e=>{if(e.key==="Enter")login(document.getElementById("ni").value);});
+document.getElementById("tab").onclick=()=>show("vap");
+document.getElementById("pb2").onclick=()=>{document.getElementById("pe").style.display="none";show("vl");};
+document.getElementById("apb").onclick=()=>{
+  const v=document.getElementById("pi").value,er=document.getElementById("pe");
+  if(v===PIN){er.style.display="none";document.getElementById("pi").value="";show("va");loadAdmin();}
+  else{er.style.display="block";document.getElementById("pi").value="";}
+};
+document.getElementById("pi").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("apb").click();});
+document.getElementById("lo").onclick=()=>{U=null;UD=mdef();show("vl");};
+document.getElementById("ae").onclick=()=>show("vl");
+document.getElementById("rb").onclick=()=>loadAdmin();
+
+// 초기 실행
+hideLoading();
+show("vl");
+</script>
+</body>
+</html>
