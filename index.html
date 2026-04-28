@@ -401,7 +401,24 @@ function togSimple(n,id){
   UD[n][id]=!UD[n][id];
   if(id.endsWith("_p")){const b=id.slice(0,-2);if(UD[n][id])UD[n][b]=false;}
   else{const pk=id+"_p";if(pk in UD[n]&&UD[n][id])UD[n][pk]=false;}
-  save();rendScoreOnly();rendWeekHeader(n);
+  save();
+  // 체크박스 DOM 직접 업데이트
+  const baseId=id.endsWith("_p")?id.slice(0,-2):id;
+  const it=SIT.find(x=>x.id===baseId);
+  if(it){
+    const ck=UD[n][baseId];
+    const ps=it.hp&&UD[n][baseId+"_p"];
+    const active=ck||ps;
+    const bx=document.getElementById(`cb-${n}-${baseId}`);
+    const lb=document.getElementById(`cl-${n}-${baseId}`);
+    const bg=document.getElementById(`ptb-${n}-${baseId}`);
+    const pb=document.getElementById(`pass-${n}-${baseId}`);
+    if(bx)bx.className="cb"+(ck?" ck":"");
+    if(lb)lb.className="cl"+(ps?" st":"");
+    if(bg)bg.className="ptb"+(active?" ck":"");
+    if(pb)pb.className="pass-btn"+(ps?" on":"");
+  }
+  rendScoreOnly();rendWeekHeader(n);
 }
 
 // ── 기도 스테퍼 ──────────────────────────────────────────────
@@ -498,11 +515,11 @@ function rendAllCards(){
         for(const it of val){
           const row=document.createElement("div");row.className="cr";
           const ck=UD[w.n][it.id],ps=it.hp&&UD[w.n][it.id+"_p"],active=ck||ps;
-          const bx=document.createElement("div");bx.className="cb"+(ck?" ck":"");bx.onclick=()=>togSimple(w.n,it.id);
-          const lb=document.createElement("span");lb.className="cl"+(ps?" st":"");lb.textContent=it.lbl;lb.onclick=()=>togSimple(w.n,it.id);
-          const badge=document.createElement("span");badge.className="ptb"+(active?" ck":"");badge.textContent="+"+it.pts+"점";
+          const bx=document.createElement("div");bx.className="cb"+(ck?" ck":"");bx.id=`cb-${w.n}-${it.id}`;bx.onclick=()=>togSimple(w.n,it.id);
+          const lb=document.createElement("span");lb.className="cl"+(ps?" st":"");lb.id=`cl-${w.n}-${it.id}`;lb.textContent=it.lbl;lb.onclick=()=>togSimple(w.n,it.id);
+          const badge=document.createElement("span");badge.className="ptb"+(active?" ck":"");badge.id=`ptb-${w.n}-${it.id}`;badge.textContent="+"+it.pts+"점";
           row.appendChild(bx);row.appendChild(lb);
-          if(it.hp){const pb=document.createElement("button");pb.className="pass-btn"+(ps?" on":"");pb.textContent="Pass";pb.onclick=(e)=>{e.stopPropagation();togSimple(w.n,it.id+"_p");};row.appendChild(pb);}
+          if(it.hp){const pb=document.createElement("button");pb.className="pass-btn"+(ps?" on":"");pb.id=`pass-${w.n}-${it.id}`;pb.textContent="Pass";pb.onclick=(e)=>{e.stopPropagation();togSimple(w.n,it.id+"_p");};row.appendChild(pb);}
           row.appendChild(badge);body.appendChild(row);
         }
       }
