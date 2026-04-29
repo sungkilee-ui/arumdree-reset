@@ -328,6 +328,7 @@ const SC_STYLE={
 };
 const MSGS=["시작해볼까요?","좋은 출발이에요!","잘 하고 있어요!","절반을 넘었어요!","대단해요!","거의 다 왔어요!","완주하셨습니다! 🎉"];
 const TMAX=700,WMAX=100,PID="prayer",PMAX=6;
+function san(n){return n.trim().replace(/\s+/g,"_").replace(/[\/\\\'"]/g,"");}
 
 function gcw(){const n=new Date();for(let i=WK.length-1;i>=0;i--)if(n>=WK[i].s&&n<=WK[i].e)return WK[i].n;return null;}
 function mdef(){const d={};for(let i=1;i<=7;i++){d[i]={};for(const x of SIT){d[i][x.id]=false;if(x.hp)d[i][x.id+"_p"]=false;}d[i][PID]=0;}return d;}
@@ -552,10 +553,11 @@ async function loadAdmin(){
   ul.innerHTML='<div class="ltxt">불러오는 중...</div>';
   document.getElementById("su").textContent="—";document.getElementById("sd").textContent="—";
   try{
-    // Apps Script에서 전체 목록 가져오기
     const r=await fetch(`${API_URL}?action=all`);
-    const data=await r.json();
-    if(!data||!data.length){ul.innerHTML='<div class="ltxt">등록된 사용자가 없습니다.</div>';
+    let data=await r.json();
+    // 서버가 {ok,error} 형태로 오는 경우 처리
+    if(!Array.isArray(data)) data=[];
+    if(!data.length){ul.innerHTML='<div class="ltxt">등록된 사용자가 없습니다.</div>';
       document.getElementById("su").textContent="0";document.getElementById("sd").textContent="0";return;}
     const avg=Math.round(data.reduce((a,u)=>a+(u.total||0),0)/data.length);
     document.getElementById("su").textContent=data.length;
