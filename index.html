@@ -351,24 +351,18 @@ function show(id){
 async function apiGet(name){
   try{
     const r=await fetch(`${API_URL}?name=${encodeURIComponent(name)}`);
-    if(!r.ok) return {ok:false,error:"서버 오류"};
+    if(!r.ok) return {ok:false};
     return await r.json();
-  }catch(e){
-    console.warn("데이터 조회 오류(오프라인 모드):",e.message);
-    return {ok:false,error:e.message};
-  }
+  }catch(e){return {ok:false};}
 }
 async function apiSave(name,data){
+  if(!API_URL||API_URL.includes("여기에"))return;
   try{
-    // mode:'no-cors' + text/plain 으로 CORS 우회
-    // Apps Script는 content-type 무관하게 e.postData.contents로 읽음
-    await fetch(API_URL,{
-      method:"POST",
-      mode:"no-cors",
-      body:JSON.stringify({name,data}),
-      headers:{"Content-Type":"text/plain"}
-    });
-  }catch(e){console.warn("저장 오류:",e);}
+    const p=new URLSearchParams();
+    p.append("name",name);
+    p.append("data",JSON.stringify(data));
+    fetch(API_URL,{method:"POST",mode:"no-cors",body:p});
+  }catch(e){}
 }
 async function apiGetAll(){
   try{
@@ -381,29 +375,42 @@ async function apiGetAll(){
 async function login(name){
   if(!name.trim()){document.getElementById("le").style.display="block";return;}
   document.getElementById("le").style.display="none";
-  showLoading();
   U=name.trim();
-  const res=await apiGet(U);
-  if(res.ok&&res.found&&res.data){
-    // 서버 데이터로 복원
-    UD=mdef();
-    for(let w=1;w<=7;w++){
-      if(res.data[w]){Object.assign(UD[w],res.data[w]);}
-    }
-  } else {
-    UD=mdef();
-  }
+
+  // ① localStorage에서 즉시 불러오기 (항상 작동)
+  try{
+    const local=localStorage.getItem("aru26_"+san(U));
+    UD=local?JSON.parse(local):mdef();
+  }catch(e){UD=mdef();}
+
   OW=CW||1;
   document.getElementById("ud").textContent=U+" 님";
   document.getElementById("av").textContent=U.charAt(0);
   hideLoading();show("vc");rend();
+
+  // ② 서버에서 백그라운드로 최신 데이터 가져오기 (선택적)
+  if(API_URL&&!API_URL.includes("여기에")){
+    try{
+      const res=await apiGet(U);
+      if(res.ok&&res.found&&res.data){
+        const sUD=mdef();
+        for(let w=1;w<=7;w++){if(res.data[w])Object.assign(sUD[w],res.data[w]);}
+        // 서버 점수가 더 높으면 서버 데이터 사용
+        if(tscr(sUD)>tscr(UD)){UD=sUD;saveLocal();rend();}
+      }
+    }catch(e){}
+  }
 }
 
-// ── 저장 (디바운스) ────────────────────────────────────────────
+// ── 저장: localStorage 즉시 + 서버 1.5초 후 동기화 ──────────
 let saveTimer=null;
+function saveLocal(){
+  try{localStorage.setItem("aru26_"+san(U),JSON.stringify(UD));}catch(e){}
+}
 function save(){
+  saveLocal(); // 즉시 로컬 저장 (데이터 손실 방지)
   clearTimeout(saveTimer);
-  saveTimer=setTimeout(()=>apiSave(U,UD),800);
+  saveTimer=setTimeout(()=>apiSave(U,UD),1500); // 서버 동기화
 }
 
 // ── 체크 토글 ────────────────────────────────────────────────
