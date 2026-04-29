@@ -302,7 +302,7 @@ html,body{min-height:100%;margin:0;background:#F0F7F2;
 // ================================================================
 // ★ 여기에 Google Apps Script 배포 URL을 입력하세요 ★
 // ================================================================
-const API_URL = "https://script.google.com/macros/s/AKfycbwnCj-Ep0bKhuJHu703mr1HDFcAQvboLX99duiI1YJ3WhxRmi0bbeok_Bj93RA84Sc/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxpakj73hx9UnBW7cEroBvHw0H5ER1RC1nMCer_8X5RbeE-kQz9ZBvDh6gEKEO3xSZC/exec";
 const PIN = "0000"; // 관리자 코드 (변경 권장)
 // ================================================================
 
@@ -548,21 +548,33 @@ function rendAllCards(){
 }
 
 // ── 관리자 대시보드 ───────────────────────────────────────────
-async function loadAdmin(){
+function loadAdmin(){
   const ul=document.getElementById("ulist");
   ul.innerHTML='<div class="ltxt">불러오는 중...</div>';
-  document.getElementById("su").textContent="—";document.getElementById("sd").textContent="—";
-  try{
-    const r=await fetch(`${API_URL}?action=all`);
-    let data=await r.json();
-    // 서버가 {ok,error} 형태로 오는 경우 처리
-    if(!Array.isArray(data)) data=[];
-    if(!data.length){ul.innerHTML='<div class="ltxt">등록된 사용자가 없습니다.</div>';
-      document.getElementById("su").textContent="0";document.getElementById("sd").textContent="0";return;}
+  document.getElementById("su").textContent="—";
+  document.getElementById("sd").textContent="—";
+
+  // JSONP 방식: script 태그로 CORS 완전 우회
+  const cbName="__gasAdmin"+Date.now();
+  const url=`${API_URL}?action=all&callback=${cbName}`;
+
+  window[cbName]=function(data){
+    // 스크립트 태그 정리
+    const sc=document.getElementById("gas-script");
+    if(sc) sc.remove();
+    delete window[cbName];
+
+    if(!Array.isArray(data)||!data.length){
+      ul.innerHTML='<div class="ltxt">등록된 사용자가 없습니다.</div>';
+      document.getElementById("su").textContent="0";
+      document.getElementById("sd").textContent="0";
+      return;
+    }
     const avg=Math.round(data.reduce((a,u)=>a+(u.total||0),0)/data.length);
     document.getElementById("su").textContent=data.length;
     document.getElementById("sd").textContent=avg+"점";
-    data.sort((a,b)=>(b.total||0)-(a.total||0));ul.innerHTML="";
+    data.sort((a,b)=>(b.total||0)-(a.total||0));
+    ul.innerHTML="";
     for(const u of data){
       const ts=u.total||0,tp=Math.round(ts/TMAX*100);
       const scores=u.scores||[0,0,0,0,0,0,0];
@@ -573,15 +585,32 @@ async function loadAdmin(){
       nr.innerHTML=`<span class="unm">${u.name}</span>`;nr.appendChild(sw);
       const md=document.createElement("div");md.className="mds";
       for(let i=0;i<7;i++){
-        const sc=scores[i]||0,full=sc===WMAX,wp=Math.round(sc/WMAX*100);
+        const sc2=scores[i]||0,full=sc2===WMAX,wp=Math.round(sc2/WMAX*100);
         const d=document.createElement("div");d.className="md"+(full?" full":"");
-        d.innerHTML=`<div class="md-f" style="width:${wp}%"></div><span class="md-t">${full?"✓":sc>0?sc:""}</span>`;md.appendChild(d);
+        d.innerHTML=`<div class="md-f" style="width:${wp}%"></div><span class="md-t">${full?"✓":sc2>0?sc2:""}</span>`;md.appendChild(d);
       }
       const bt=document.createElement("div");bt.className="ubtr";
       const bf=document.createElement("div");bf.className="ubf";bf.style.width=`${tp}%`;bt.appendChild(bf);
       c.appendChild(nr);c.appendChild(md);c.appendChild(bt);ul.appendChild(c);
     }
-  }catch(e){ul.innerHTML='<div class="ltxt">오류가 발생했습니다. API URL을 확인해 주세요.</div>';}
+  };
+
+  // 5초 타임아웃
+  const timer=setTimeout(()=>{
+    delete window[cbName];
+    ul.innerHTML='<div class="ltxt">불러오기 실패. 새로 고침을 눌러주세요.</div>';
+  },5000);
+  window[cbName+"_orig"]=window[cbName];
+  window[cbName]=function(d){clearTimeout(timer);window[cbName+"_orig"](d);};
+
+  const s=document.createElement("script");
+  s.id="gas-script";
+  s.src=url;
+  s.onerror=()=>{
+    clearTimeout(timer);
+    ul.innerHTML='<div class="ltxt">연결 실패. API URL을 확인해주세요.</div>';
+  };
+  document.head.appendChild(s);
 }
 
 // ── 이벤트 ────────────────────────────────────────────────────
